@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ArticleService } from './article.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'conduict';
+
+  constructor(private articleService: ArticleService) {
+
+  }
+
+  onTagSelection(value) {
+    console.log(value)
+    this.articleService.getFeedByTag(value)
+  }
 }
