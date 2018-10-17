@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TagsService } from './tags.service';
+import { ArticleService } from '../article.service';
 
 @Component({
   selector: 'app-tags',
@@ -9,16 +10,20 @@ import { TagsService } from './tags.service';
 export class TagsComponent implements OnInit {
   tags : any
   @Output() isTagSelected = new EventEmitter<string>();
-  constructor(private getTag : TagsService) { }
+  constructor(private articleService: ArticleService , private tagService: TagsService) { }
 
   ngOnInit() {
-    this.getTag.getGlobalTags().subscribe((data : {tags:string}) => {
+    this.tagService.getGlobalTags().subscribe((data : {tags:string}) => {
       this.tags=data.tags
-      console.log(this.tags);
     });
   }
 
   tagSelected(tag){
     this.isTagSelected.emit(tag)
+  }
+
+  onTagSelection(value) {
+    this.tagService.setTagName(value)
+    this.articleService.getFeedByTag(value)
   }
 }
