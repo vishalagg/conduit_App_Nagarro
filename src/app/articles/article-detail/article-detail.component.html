@@ -12,5 +12,8 @@
 </div>
 
 <div class="container comments text-center" *ngFor="let comment of allComments">
-  {{ comment.body }}
+  {{ comment.body }} and {{currentUser }}
+  <span>
+    <button class="btn" (click)="deleteComment(comment.id)" *ngIf='comment.author.username===currentUser'>DeleteMe</button>
+  </span>
 </div>

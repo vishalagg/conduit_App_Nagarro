@@ -65,4 +65,14 @@ export class ArticleService{
     };
     return this.http.post(url, body, httpOptions)
   }
+
+  deleteComment(slug:string,id:number) {
+    const url = `${this.baseUrl}${slug}/comments/${id}`
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token '+ localStorage.getItem('token')
+      })
+    };
+    return this.http.delete(url,httpOptions)
+  }
 }
