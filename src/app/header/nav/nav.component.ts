@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  isUserLoggedIn : boolean
+  username : string
+  constructor(private userService: UserService) {
+   }
 
   ngOnInit() {
+    this.userService.currentUsername.subscribe(username => {
+      this.username = username
+    })
   }
 
 }
