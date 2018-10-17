@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavComponent } from './header/nav/nav.component';
 import { HeaderComponent } from './header/header.component';
@@ -9,6 +9,13 @@ import { ArticleListComponent } from './articles/article-list/article-list.compo
 import { ArticleItemComponent } from './articles/article-list/article-item/article-item.component';
 import { TagsComponent } from './tags/tags.component';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
+import { ArticleDetailComponent } from './articles/article-detail/article-detail.component';
+import { HomeComponent } from './home/home.component';
+
+const routes : Routes = [
+  {path : '', component: HomeComponent},
+  {path : 'article/:slug', component: ArticleDetailComponent}
+]
 
 @NgModule({
   declarations: [
@@ -18,11 +25,14 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
     ArticlesComponent,
     ArticleListComponent,
     ArticleItemComponent,
-    TagsComponent
+    TagsComponent,
+    ArticleDetailComponent,
+    HomeComponent
   ],
   imports: [
     HttpClientModule,
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
