@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../article.service';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -10,25 +11,38 @@ import { ArticleService } from '../../article.service';
 })
 export class ArticleDetailComponent implements OnInit {
 
-  comment : string
-  articleData: any;
-  constructor(private route: ActivatedRoute, private articleService: ArticleService) {
+  isUserLoggedIn : boolean
+  articleData: any
+  allComments : any
+  slug: string
+
+  constructor(private route: ActivatedRoute, private articleService: ArticleService,
+              private userService: UserService) {
     
   }
   ngOnInit() {
+    this.isUserLoggedIn = localStorage.getItem('token')?true:false
     this.route.paramMap.subscribe(
       params => {
-        let slug = params['params'].slug;
-        this.articleService.getArticleDetails(slug).subscribe((data : any) => {
+        this.slug = params['params'].slug
+        this.articleService.getArticleDetails(this.slug).subscribe((data : any) => {
         this.articleData = data.article;
         })
       }
     )
+    this.articleService.getComments(this.slug).subscribe((data: {comments : any}) => {
+      this.allComments = data.comments
+      console.log("Comments: "+JSON.stringify(data.comments));
+    })
   }
 
   postComment(comment){
-    this.comment = comment
-    console.log(comment)
+    this.articleService.postComments(comment,this.slug).subscribe((response:{comment:any}) => {
+      console.log(response)
+      this.allComments.unshift(response.comment)
+    })
   }
+
+
 
 }

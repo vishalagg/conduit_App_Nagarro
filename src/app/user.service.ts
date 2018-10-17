@@ -34,5 +34,4 @@ export class UserService {
   setUsername(username: string) {
     this.currentUsername.next(username)
   }
-
 }

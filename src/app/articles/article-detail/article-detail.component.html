@@ -8,9 +8,9 @@
 </div>
 <div class="container comments text-center">
   <textarea #commentField cols="70" rows="5"></textarea><br>
-  <button class="btn primary-btn" (click) = postComment(commentField.value)>Post Comment</button>
+  <button class="btn primary-btn" *ngIf='isUserLoggedIn' (click) = postComment(commentField.value)>Post Comment</button>
 </div>
 
-<div class="container comments text-center" *ngIf="comment">
-  {{ comment }}
+<div class="container comments text-center" *ngFor="let comment of allComments">
+  {{ comment.body }}
 </div>

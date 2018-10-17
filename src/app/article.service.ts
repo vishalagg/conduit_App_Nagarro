@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Subject, Observable, BehaviorSubject } from 'rxjs'
 
 @Injectable({
@@ -8,11 +8,13 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs'
 export class ArticleService{
   urlForGlobalFeed : string
   urlForTagFeed : string 
+  baseUrl : string
   articles = new Subject()
 
   constructor(private http: HttpClient) { 
-    this.urlForGlobalFeed = "https://conduit.productionready.io/api/articles"
-    this.urlForTagFeed = "https://conduit.productionready.io/api/articles?tag="
+    this.baseUrl = "https://conduit.productionready.io/api/articles/"
+    this.urlForGlobalFeed = this.baseUrl
+    this.urlForTagFeed = this.baseUrl +"?tag="
     this.setGlobalFeed()
   }
 
@@ -44,10 +46,23 @@ export class ArticleService{
   }
 
   getComments(slug : string) {
-
+    const url = this.baseUrl + slug + '/comments'
+    return this.http.get(url)
   }
 
-  postComments(comment : string,slug:string) {
-
+  postComments(userComment : string,slug:string) {
+    const url = this.baseUrl + slug + '/comments'
+    const body = {
+      comment: {
+        body: userComment
+      }
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'authorization': 'Token '+ localStorage.getItem('token')
+      })
+    };
+    return this.http.post(url, body, httpOptions)
   }
 }
