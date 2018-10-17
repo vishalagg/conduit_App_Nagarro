@@ -1,4 +1,6 @@
 <li>
   <h3>{{ article.title }}</h3>
-  <p>{{ article.body }}</p>
+  <p>{{ article.description }}</p>
+
+  <span><a [routerLink]="['/article',article.slug]">Read More</a></span>
 </li>

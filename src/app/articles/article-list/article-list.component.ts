@@ -14,6 +14,7 @@ export class ArticleListComponent implements OnInit {
     this.articalService.getFeed().subscribe((data : {articles:string,articlesCount:number}) => {
       this.articles=data.articles
     })
+    this.articalService.setGlobalFeed()
   }
 
 }
