@@ -1,6 +1,16 @@
 <div class="container-fluid head">
   <div class="container">
-    <h1 class="logo">Conduit</h1>
+    <h1 class="logo" *ngIf="articleData">{{articleData.title}}</h1>
+    <h3></h3>
     <h4 class="text-center">A place to share your knowledge.</h4>
   </div>
+
+</div>
+<div class="container comments text-center">
+  <textarea #commentField cols="70" rows="5"></textarea><br>
+  <button class="btn primary-btn" (click) = postComment(commentField.value)>Post Comment</button>
+</div>
+
+<div class="container comments text-center" *ngIf="comment">
+  {{ comment }}
 </div>

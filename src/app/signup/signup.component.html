@@ -1,0 +1,14 @@
+<form [formGroup]="signupForm" (ngSubmit)="registerUser()">
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">Submit</button>
+</form>

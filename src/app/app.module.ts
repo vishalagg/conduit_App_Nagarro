@@ -11,10 +11,15 @@ import { TagsComponent } from './tags/tags.component';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { ArticleDetailComponent } from './articles/article-detail/article-detail.component';
 import { HomeComponent } from './home/home.component';
+import { SignupComponent } from './signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SigninComponent } from './signin/signin.component';
 
 const routes : Routes = [
   {path : '', component: HomeComponent},
-  {path : 'article/:slug', component: ArticleDetailComponent}
+  {path : 'article/:slug', component: ArticleDetailComponent},
+  {path : 'signup', component: SignupComponent},
+  {path : 'signin', component: SigninComponent}
 ]
 
 @NgModule({
@@ -27,11 +32,14 @@ const routes : Routes = [
     ArticleItemComponent,
     TagsComponent,
     ArticleDetailComponent,
-    HomeComponent
+    HomeComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

@@ -38,4 +38,16 @@ export class ArticleService{
       this.articles.next(data)
    })
   }
+
+  getArticleDetails(slug: string){
+    return this.http.get(this.urlForGlobalFeed+"/"+slug);
+  }
+
+  getComments(slug : string) {
+
+  }
+
+  postComments(comment : string,slug:string) {
+
+  }
 }
