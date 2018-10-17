@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Subject, Observable } from 'rxjs'
+import { Subject, Observable, BehaviorSubject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +8,12 @@ import { Subject, Observable } from 'rxjs'
 export class ArticleService{
   urlForGlobalFeed : string
   urlForTagFeed : string 
-  articles = new Subject<any>()
+  articles = new Subject()
 
   constructor(private http: HttpClient) { 
     this.urlForGlobalFeed = "https://conduit.productionready.io/api/articles"
     this.urlForTagFeed = "https://conduit.productionready.io/api/articles?tag="
+    this.setGlobalFeed()
   }
 
   getFeed() {
@@ -23,11 +24,12 @@ export class ArticleService{
     this.http.get(this.urlForGlobalFeed).subscribe((data) => {
       	this.articles.next(data)
     })
-    // console.log(data)
-    
-    // this.articles.next(data)
   }
 
+  setUserFeed() {
+
+  }
+  
   getFeedByTag(currentTag : string) {
     const url = this.urlForTagFeed + currentTag
     this.articles.next(this.http.get(url))
