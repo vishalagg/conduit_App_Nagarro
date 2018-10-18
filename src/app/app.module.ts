@@ -14,12 +14,14 @@ import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
+import { NewArticlesComponent } from './new-articles/new-articles.component';
 
 const routes : Routes = [
   {path : '', component: HomeComponent},
   {path : 'article/:slug', component: ArticleDetailComponent},
   {path : 'signup', component: SignupComponent},
-  {path : 'signin', component: SigninComponent}
+  {path : 'signin', component: SigninComponent},
+  {path: 'newarticle', component: NewArticlesComponent}
 ]
 
 @NgModule({
@@ -34,7 +36,8 @@ const routes : Routes = [
     ArticleDetailComponent,
     HomeComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    NewArticlesComponent
   ],
   imports: [
     HttpClientModule,

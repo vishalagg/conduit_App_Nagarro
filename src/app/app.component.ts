@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
         this.userSerive.getCurrentUser().subscribe((user:{user: any}) => {
           console.log(user.user.username);
           this.userSerive.setUsername(user.user.username);
-        }
+        })
       }
   }
 
