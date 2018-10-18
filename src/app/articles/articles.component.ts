@@ -10,12 +10,15 @@ import { ArticleService } from '../article.service';
 export class ArticlesComponent implements OnInit {
   tagName : string
   loadedTagBtn : boolean
+  localStorageObj : Object
+
   constructor(private tagService: TagsService,private articleService : ArticleService) { }
 
   ngOnInit() {
     this.tagService.getTagName().subscribe((tagName) => {
       this.tagName = tagName
     })
+    this.localStorageObj = localStorage
   }
 
   getTagName() {
@@ -26,7 +29,6 @@ export class ArticlesComponent implements OnInit {
   getFeed(feedSource){
     feedSource=='user'? this.articleService.setUserFeed() : this.articleService.setGlobalFeed();
     this.tagService.setTagName(null);
-
   }
 
 }

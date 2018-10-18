@@ -16,8 +16,12 @@ export class NavComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log("Heelllelelel");
     this.userService.currentUsername.subscribe(username => {
+      console.log(username);
+      
       this.username = username
+
     })
   }
 

@@ -1,5 +1,5 @@
 <div>
-  <button class="btn" (click)="getFeed('user')">Your Feed</button>
+  <button class="btn" (click)="getFeed('user')" *ngIf="localStorageObj.getItem('token')">Your Feed</button>
   <button class="btn" (click)="getFeed('global')">Global Feed</button>
   <button class="btn" *ngIf="tagName">{{ tagName }}</button>
 </div>

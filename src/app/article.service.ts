@@ -29,7 +29,15 @@ export class ArticleService{
   }
 
   setUserFeed() {
-
+    const url = this.baseUrl + 'feed'
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token '+ localStorage.getItem('token')
+      })
+    };
+    this.http.get(url,httpOptions).subscribe((data) => {
+      this.articles.next(data)
+    })
   }
   
   getFeedByTag(currentTag : string) {
