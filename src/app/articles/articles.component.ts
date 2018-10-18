@@ -40,7 +40,10 @@ export class ArticlesComponent implements OnInit {
           this.articleService.setMyArticles( params['params'].username)
         })
     }else if(feedSource==='favourite'){
-      this.articleService.setGlobalFeed()
+      this.route.paramMap.subscribe(
+        params => {
+          this.articleService.setFavouriteFeed( params['params'].username)
+        })
     }
     this.tagService.setTagName(null);
   }

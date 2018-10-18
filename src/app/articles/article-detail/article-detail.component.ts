@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from '../../article.service';
 import { UserService } from '../../user.service';
 
@@ -18,7 +18,7 @@ export class ArticleDetailComponent implements OnInit {
   currentUser : string
 
   constructor(private route: ActivatedRoute, private articleService: ArticleService,
-              private userService: UserService) {
+              private userService: UserService, private router: Router) {
     
   }
   ngOnInit() {
@@ -60,6 +60,13 @@ export class ArticleDetailComponent implements OnInit {
 
   deleteComment(id:number) {
     this.articleService.deleteComment(this.slug,id).subscribe((data) => this.getAllComments())
+  }
+
+  deleteArticle(){
+    this.articleService.deleteArticle(this.slug).subscribe((data) => {
+      console.log(data);
+      this.router.navigate([`/profile/${this.articleData.author.username}`])
+    })
   }
 
 }

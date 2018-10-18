@@ -96,10 +96,39 @@ export class ArticleService{
     return this.http.post(this.baseUrl,body,httpOptions)
   }
 
+  updateArticle(article : any, slug: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token '+ localStorage.getItem('token')
+      })
+    };
+    const body = {
+      article: article
+    }
+    return this.http.put(this.baseUrl+slug,body,httpOptions)
+  }
+
+  deleteArticle(slug:string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token '+ localStorage.getItem('token')
+      })
+    };
+    return this.http.delete(this.baseUrl+slug,httpOptions)
+  }
+
   setMyArticles(author: string) {
     const url = "https://conduit.productionready.io/api/articles?author="+author
     this.http.get(url).subscribe((data) => {
       this.articles.next(data)
     })
   }
+
+  setFavouriteFeed(author: string){
+    const url = "https://conduit.productionready.io/api/articles?favorited="+author
+    this.http.get(url).subscribe((data) => {
+      this.articles.next(data)
+    })
+  }
+
 }

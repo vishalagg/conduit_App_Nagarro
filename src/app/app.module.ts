@@ -23,7 +23,8 @@ const routes : Routes = [
   {path : 'signup', component: SignupComponent},
   {path : 'signin', component: SigninComponent},
   {path: 'newarticle', component: NewArticlesComponent},
-  {path: 'profile/:username', component: ProfileComponent}
+  {path: 'profile/:username', component: ProfileComponent},
+  {path: 'edit/:slug', component: NewArticlesComponent}
 ]
 
 @NgModule({

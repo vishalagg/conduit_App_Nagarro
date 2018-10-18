@@ -1,8 +1,17 @@
 <div class="container-fluid head">
-  <div class="container">
+  <div class="container" *ngIf="articleData">
     <h1 class="logo" *ngIf="articleData">{{articleData.title}}</h1>
-    <h3></h3>
-    <h4 class="text-center">A place to share your knowledge.</h4>
+    <div class="detail">
+      <h4>{{ articleData.author.username }}</h4>
+      <div class="crudBtn" *ngIf='articleData.author.username===currentUser'>
+          <button class="btn" [routerLink]="['/edit',articleData.slug]">Edit</button>&nbsp;
+          <button class="btn btn-danger" (click)="deleteArticle()" >Delete</button>
+      </div>
+      <div class="crudBtn" *ngIf='articleData.author.username!==currentUser'>
+          <button class="btn">Follow</button>&nbsp;
+          <button class="btn">Favourite</button>
+      </div> 
+    </div>
   </div>
 
 </div>
