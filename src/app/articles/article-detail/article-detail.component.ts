@@ -32,10 +32,13 @@ export class ArticleDetailComponent implements OnInit {
         })
       }
     )
-    this.userService.currentUsername.subscribe((username) => {
-      this.currentUser=username
+    // this.userService.currentUsername.subscribe((username) => {
+    //   this.currentUser=username
+    // })
+    this.userService.getCurrentUser().subscribe((user:{user: any}) => {
+      this.currentUser = user.user.username
+
     })
-    
     this.getAllComments()
     console.log("see : "+this.currentUser);
     

@@ -6,6 +6,6 @@
         <li class="nav-item"><a routerLink='/signup' class="nav-link" *ngIf="!username">Signup</a></li>
         <li class="nav-item"><a routerLink='/signup' class="nav-link" *ngIf="username" routerLink='/newarticle' (click)="addNewArticle()" >New Article</a></li>
         <li class="nav-item"><p (click)='logout()'  class="nav-link" *ngIf="username">Logout</p></li>
-        <li class="nav-item"><a routerLink='/signup' class="nav-link" *ngIf="username">{{ username }}</a></li>
+        <li class="nav-item"><a [routerLink]="['/profile',username]" class="nav-link" *ngIf="username">{{ username }}</a></li>
     </ul>
 </nav>

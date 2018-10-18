@@ -15,7 +15,7 @@ export class ArticleService{
     this.baseUrl = "https://conduit.productionready.io/api/articles/"
     this.urlForGlobalFeed = this.baseUrl
     this.urlForTagFeed = this.baseUrl +"?tag="
-    this.setGlobalFeed()
+    // this.setGlobalFeed()
   }
 
   getFeed() {
@@ -94,5 +94,12 @@ export class ArticleService{
       article: article
     }
     return this.http.post(this.baseUrl,body,httpOptions)
+  }
+
+  setMyArticles(author: string) {
+    const url = "https://conduit.productionready.io/api/articles?author="+author
+    this.http.get(url).subscribe((data) => {
+      this.articles.next(data)
+    })
   }
 }

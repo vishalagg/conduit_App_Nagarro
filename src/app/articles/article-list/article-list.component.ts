@@ -14,11 +14,11 @@ export class ArticleListComponent implements OnInit {
     this.articalService.getFeed().subscribe((data : {articles:string,articlesCount:number}) => {
       this.articles=data.articles
     })
-    if(localStorage.getItem('token')!=null){
-      this.articalService.setUserFeed()
-    }else{
-      this.articalService.setGlobalFeed()
-    }
+    // if(localStorage.getItem('token')!=null){
+    //   this.articalService.setUserFeed()
+    // }else{
+    //   this.articalService.setGlobalFeed()
+    // }
   }
 
 }
