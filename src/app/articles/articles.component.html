@@ -1,11 +1,12 @@
-<div *ngIf="parent==='home'">
-  <button class="btn" (click)="getFeed('user')" *ngIf="localStorageObj.getItem('token')">Your Feed</button>
-  <button class="btn" (click)="getFeed('global')">Global Feed</button>
-  <button class="btn" *ngIf="tagName">{{ tagName }}</button>
+<div *ngIf="parent==='home'" class="main">
+  <a class="tag" [ngClass]="{'active':classIndex==1 && !tagName}" (click)="getFeed('user')" *ngIf="localStorageObj.getItem('token')">Your Feed</a>
+  <a class="tag" [ngClass]="{'active':(classIndex==1 && !tagName && !localStorageObj.getItem('token'))
+                                      ||(classIndex==2 && !tagName && localStorageObj)}" (click)="getFeed('global')">Global Feed</a>
+  <a class="tag active" *ngIf="tagName">#{{ tagName }}</a>
 </div>
-<div *ngIf="parent==='profile'">
-  <button class="btn" (click)="getFeed('myFeed')">My Articles</button>
-  <button class="btn" (click)="getFeed('favourite')">Favourite</button>
+<div *ngIf="parent==='profile'" class="main">
+  <a class="tag" [ngClass]="{'active':classIndex==1 && !tagName}" (click)="getFeed('myFeed')">My Articles</a>
+  <a class="tag" [ngClass]="{'active':classIndex==3 && !tagName}" (click)="getFeed('favourite')">Favourite</a>
 </div>
 <hr>
 <app-article-list></app-article-list>

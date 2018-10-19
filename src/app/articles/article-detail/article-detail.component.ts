@@ -29,31 +29,26 @@ export class ArticleDetailComponent implements OnInit {
         this.slug = params['params'].slug
         this.articleService.getArticleDetails(this.slug).subscribe((data : any) => {
         this.articleData = data.article;
+        },error => {
+          this.router.navigate(['/']);
         })
       }
     )
-    // this.userService.currentUsername.subscribe((username) => {
-    //   this.currentUser=username
-    // })
     this.userService.getCurrentUser().subscribe((user:{user: any}) => {
       this.currentUser = user.user.username
 
     })
-    this.getAllComments()
-    console.log("see : "+this.currentUser);
-    
+    this.getAllComments() 
   }
   
   getAllComments(){
     this.articleService.getComments(this.slug).subscribe((data: {comments : any}) => {
       this.allComments = data.comments
-      console.log("Comments: "+JSON.stringify(data.comments));
     })
   }
 
   postComment(comment){
     this.articleService.postComments(comment,this.slug).subscribe((response:{comment:any}) => {
-      console.log(response)
       this.allComments.unshift(response.comment)
     })
   }
@@ -64,7 +59,6 @@ export class ArticleDetailComponent implements OnInit {
 
   deleteArticle(){
     this.articleService.deleteArticle(this.slug).subscribe((data) => {
-      console.log(data);
       this.router.navigate([`/profile/${this.articleData.author.username}`])
     })
   }
