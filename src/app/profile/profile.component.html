@@ -1,8 +1,20 @@
 <div class="container-fluid head">
-  <h1 class="logo text-center">{{username}}</h1>
-  <h4 class="text-center">A place to share your knowledge.</h4>
+  <div class="logo text-center">
+    <img src="{{ image }}" alt="" height="100px" width="100px;">
+    <h5>{{username}}</h5>
+  </div>
+  <div class="wrapper" *ngIf="loggedInUsername!==username">
+    <i class="fas fa-plus"></i> 
+    <small *ngIf="!isFollowing">&nbsp;Follow {{username}}</small>
+    <small *ngIf="isFollowing">&nbsp;Follow {{username}}</small>
+  </div>
+  <div class="wrapper" *ngIf="loggedInUsername===username">
+      <i class="fas fa-cog"><small>&nbsp;Edit Profile Settings</small></i>
+  </div>
+  <!-- {{ isFollowing }} -->
+  <!-- <h4 class="text-center">A place to share your knowledge.</h4> -->
 </div>
 
 <div class="container">
-  <app-articles parent="profile"></app-articles>
+  <app-articles parent="profile">Loading...</app-articles>
 </div>

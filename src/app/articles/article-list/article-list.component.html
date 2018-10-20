@@ -1,6 +1,7 @@
 <ul>
     <app-article-item *ngFor="let article of articles" [article]="article"></app-article-item>
 </ul>
-<!-- <ul *ngIf="parent==='profile'">
-    <app-article-item *ngFor="let article of articles" [article]="article"></app-article-item>
-</ul> -->
+
+<pagination class="blocks" [boundaryLinks]="true" [totalItems]="totalArticle" (pageChanged)="pageChanged($event)" 
+previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [maxSize]="10">
+</pagination> 

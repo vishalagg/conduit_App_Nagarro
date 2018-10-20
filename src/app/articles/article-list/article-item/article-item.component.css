@@ -1,0 +1,42 @@
+.readMore {
+    color : grey;
+    text-decoration: none;
+}
+
+img {
+    border-radius: 50%;
+}
+
+.imgDiv {
+    padding-top: 4px;
+    float: left;
+}
+
+small {
+    display: block;
+}
+
+.uname{
+    padding-left: 40px;
+}
+
+.uname a {
+    color: #5cb85c;
+    cursor: pointer;
+}
+
+i {
+    padding-left:7px;
+    padding-right:7px;
+    color : #5cb85c;
+}
+
+.heart {
+    float : right;
+    border:1px solid #5cb85c; 
+    border-radius: 5px;
+}
+
+a {
+    cursor: pointer;
+}

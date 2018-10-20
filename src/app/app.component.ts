@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     	if(localStorage.getItem('token')!=null){
         this.userSerive.getCurrentUser().subscribe((user:{user: any}) => {
-          console.log(user.user.username);
           this.userSerive.setUsername(user.user.username);
         })
       }

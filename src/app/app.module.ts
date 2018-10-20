@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
 import { NewArticlesComponent } from './new-articles/new-articles.component';
 import { ProfileComponent } from './profile/profile.component';
+import { HelperComponent } from './profile/helper/helper.component';
+import { PaginationModule } from 'ngx-bootstrap';
 
 const routes : Routes = [
   {path : '', component: HomeComponent},
@@ -41,12 +43,14 @@ const routes : Routes = [
     SignupComponent,
     SigninComponent,
     NewArticlesComponent,
-    ProfileComponent
+    ProfileComponent,
+    HelperComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
+    PaginationModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
   providers: [],

@@ -1,6 +1,24 @@
 <li>
-  <h3>{{ article.title }}</h3>
-  <p>{{ article.description }}</p>
+  <div class="head">
+    <div class="heart">
+      <a><i class="fas fa-heart" *ngIf="article.favorited">{{ article.favoritesCount }}</i></a> 
+      <a><i class="far fa-heart" *ngIf="!article.favorited">{{ article.favoritesCount }}</i></a> 
+    </div>
+    <div class="imgDiv">
+      <img src="{{ article.author.image }}" alt="image" height="32px" width="32px" />
+    </div>
+    <div class='uname'>
+      <a [routerLink]="['/profile',article.author.username]"> {{ article.author.username }} </a> 
+      <small class='text-muted'>{{ article.createdAt | date: 'longDate' }}</small>
+    </div>
 
-  <span><a [routerLink]="['/article',article.slug]">Read More</a></span>
+  </div>
+  <h3>{{ article.title }}</h3>
+  <p class="text-muted">{{ article.description }}</p>
+
+
+  <small class="text-muted">
+    <a class="readMore" [routerLink]="['/article',article.slug]">Read more...</a>
+  </small>
+  <hr>
 </li>

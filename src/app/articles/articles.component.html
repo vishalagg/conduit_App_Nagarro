@@ -9,4 +9,4 @@
   <a class="tag" [ngClass]="{'active':classIndex==3 && !tagName}" (click)="getFeed('favourite')">Favourite</a>
 </div>
 <hr>
-<app-article-list></app-article-list>
+<app-article-list (totalArticleEvent)="getFeed(currentFeedName,$event)"></app-article-list>

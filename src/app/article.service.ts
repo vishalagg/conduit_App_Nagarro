@@ -9,27 +9,29 @@ export class ArticleService{
   urlForGlobalFeed : string
   urlForTagFeed : string 
   baseUrl : string
+  currentFeed = new Subject<string>()
   articles = new Subject()
 
   constructor(private http: HttpClient) { 
-    this.baseUrl = "https://conduit.productionready.io/api/articles/"
-    this.urlForGlobalFeed = this.baseUrl
+    this.baseUrl = "https://conduit.productionready.io/api/articles"
     this.urlForTagFeed = this.baseUrl +"?tag="
     // this.setGlobalFeed()
   }
 
-  getFeed() {
+  getFeed() { 
     return this.articles
   }
 
-  setGlobalFeed() {
-    this.http.get(this.urlForGlobalFeed).subscribe((data) => {
-      	this.articles.next(data)
+  setGlobalFeed(limit:number=10,offset:number=0) {
+    const urlForGlobalFeed = this.baseUrl + "?limit="+limit + "&offset=" + offset
+    
+    this.http.get(urlForGlobalFeed).subscribe((data) => {
+        this.articles.next(data)
     })
   }
 
-  setUserFeed() {
-    const url = this.baseUrl + 'feed'
+  setUserFeed(limit:number=10,offset:number=0) {
+    const url = this.baseUrl + '/feed/' + "?limit="+limit + "&offset=" + offset
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': 'Token '+ localStorage.getItem('token')
@@ -54,12 +56,12 @@ export class ArticleService{
   }
 
   getComments(slug : string) {
-    const url = this.baseUrl + slug + '/comments'
+    const url = this.baseUrl + "/" + slug + '/comments'
     return this.http.get(url)
   }
 
   postComments(userComment : string,slug:string) {
-    const url = this.baseUrl + slug + '/comments'
+    const url = this.baseUrl + "/" + slug + '/comments'
     const body = {
       comment: {
         body: userComment
@@ -75,7 +77,7 @@ export class ArticleService{
   }
 
   deleteComment(slug:string,id:number) {
-    const url = `${this.baseUrl}${slug}/comments/${id}`
+    const url = `${this.baseUrl}/${slug}/comments/${id}`
     const httpOptions = {
       headers: new HttpHeaders({
         'authorization': 'Token '+ localStorage.getItem('token')
@@ -105,7 +107,7 @@ export class ArticleService{
     const body = {
       article: article
     }
-    return this.http.put(this.baseUrl+slug,body,httpOptions)
+    return this.http.put(this.baseUrl+"/"+slug,body,httpOptions)
   }
 
   deleteArticle(slug:string){
@@ -114,21 +116,29 @@ export class ArticleService{
         'authorization': 'Token '+ localStorage.getItem('token')
       })
     };
-    return this.http.delete(this.baseUrl+slug,httpOptions)
+    return this.http.delete(this.baseUrl+"/"+slug,httpOptions)
   }
 
-  setMyArticles(author: string) {
-    const url = "https://conduit.productionready.io/api/articles?author="+author
+  setMyArticles(author: string,limit:number=10,offset:number=0) {
+    const url = "https://conduit.productionready.io/api/articles?author="+author+"&limit="+limit+"&offset="+offset
     this.http.get(url).subscribe((data) => {
       this.articles.next(data)
     })
   }
 
-  setFavouriteFeed(author: string){
-    const url = "https://conduit.productionready.io/api/articles?favorited="+author
+  setFavouriteFeed(author: string,limit:number=10,offset:number=0){
+    const url = "https://conduit.productionready.io/api/articles?favorited="+author+"&limit="+limit+"&offset="+offset
     this.http.get(url).subscribe((data) => {
       this.articles.next(data)
     })
+  }
+
+  setCurrentFeedName(name:string) {
+    this.currentFeed.next(name)
+  }
+
+  getCurrentFeedName() {
+    return this.currentFeed
   }
 
 }
