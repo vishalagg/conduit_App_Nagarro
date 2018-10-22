@@ -16,6 +16,7 @@ export class ArticleDetailComponent implements OnInit {
   allComments : any
   slug: string
   currentUser : string
+  defaultValue : string = ''
 
   constructor(private route: ActivatedRoute, private articleService: ArticleService,
               private userService: UserService, private router: Router) {
@@ -23,15 +24,16 @@ export class ArticleDetailComponent implements OnInit {
   }
   ngOnInit() {
     this.isUserLoggedIn = localStorage.getItem('token')?true:false
-    
+    // this.articleService
+    // const slug = this.slug
     this.route.paramMap.subscribe(
       params => {
         this.slug = params['params'].slug
         this.articleService.getArticleDetails(this.slug).subscribe((data : any) => {
-        this.articleData = data.article;
-        },error => {
-          this.router.navigate(['/']);
-        })
+          this.articleData = data.article;
+          },error => {
+          }
+        )
       }
     )
     this.userService.getCurrentUser().subscribe((user:{user: any}) => {
@@ -51,6 +53,7 @@ export class ArticleDetailComponent implements OnInit {
     this.articleService.postComments(comment,this.slug).subscribe((response:{comment:any}) => {
       this.allComments.unshift(response.comment)
     })
+    this.defaultValue = ''
   }
 
   deleteComment(id:number) {

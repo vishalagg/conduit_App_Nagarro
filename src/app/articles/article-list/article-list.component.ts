@@ -9,7 +9,6 @@ import { ArticleService } from '../../article.service';
 })
 export class ArticleListComponent implements OnInit {
   articles : any
-  @Output() totalArticleEvent = new EventEmitter()
   totalArticle : number
   constructor(private articalService: ArticleService) { }
 
@@ -18,11 +17,5 @@ export class ArticleListComponent implements OnInit {
       this.articles=data.articles
       this.totalArticle = data.articlesCount
     })
-  }
-
-  pageChanged(event: any) : void {
-    this.totalArticleEvent.emit(event) 
-    // console.log(event);
-      
   }
 }

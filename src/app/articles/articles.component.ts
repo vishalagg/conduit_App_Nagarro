@@ -29,40 +29,56 @@ export class ArticlesComponent implements OnInit {
     this.articleService.getCurrentFeedName().subscribe((data:string) => {
       this.currentFeedName = data
     })
+    this.articleService.getFeed().subscribe((data : any) => {
+      this.totalArticle = data.articlesCount
+    })
+    this.tagService.getTagName().subscribe( data => {
+      this.tagName = data
+    })
     this.localStorageObj = localStorage
   }
 
-  getTagName() {
-    this.loadedTagBtn = true;
-    return this.tagService.getTagName()
-  }
+  // getTagName() {
+  //   this.loadedTagBtn = true;
+  //   this.tagService.getTagName().subscribe( data => {
+  //     this.tagName = data
+  //   })
+  //   return this.tagName
+  // }
 
-  getFeed(feedSource:string=this.getCurrentFeedName(),
+  getFeed(feedSource:string,
           event:{page:number,itemsPerPage:number}={page:1,itemsPerPage:10}){
     const limit=10
-    const offset : number = event.page    
+    const offset : number = event.page
     
     if(feedSource==='user'){
       this.classIndex = 1
-      this.articleService.setUserFeed(limit,(offset-1)*limit)    
+      this.articleService.setUserFeed(limit,(offset-1)*limit)
+      this.tagService.setTagName(null);
     }else if(feedSource==='global'){
       this.classIndex = this.localStorageObj? 2 : 1
       this.articleService.setGlobalFeed(limit,(offset-1)*limit)
+      this.tagService.setTagName(null);
     }else if(feedSource==='myFeed'){
       this.classIndex = 1
       this.route.paramMap.subscribe(
         params => {
           this.articleService.setMyArticles( params['params'].username,limit,(offset-1)*limit)
         })
+      this.tagService.setTagName(null);
     }else if(feedSource==='favourite'){
       this.classIndex = 3
       this.route.paramMap.subscribe(
         params => {
           this.articleService.setFavouriteFeed( params['params'].username,limit,(offset-1)*limit)
         })
-    }
+      this.tagService.setTagName(null);
+      }else {
+        
+      this.articleService.getFeedByTag(this.tagName,limit,(offset-1)*limit)
+        // this.tagService
+      }
     this.setCurrentFeedName(feedSource)
-    this.tagService.setTagName(null);
   }
 
   setCurrentFeedName(name:string) {
@@ -72,5 +88,8 @@ export class ArticlesComponent implements OnInit {
   getCurrentFeedName() {
     return this.currentFeedName
   }
-  
+
+  pageChanged(event) {
+    this.getFeed(this.getCurrentFeedName(),event)   
+  }
 }

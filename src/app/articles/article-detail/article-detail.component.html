@@ -1,8 +1,16 @@
 <div class="container-fluid head">
   <div class="container" *ngIf="articleData">
-    <h1 class="logo" *ngIf="articleData">{{articleData.title}}</h1>
+    <h2 class="logo" *ngIf="articleData">{{articleData.title}}</h2>
     <div class="detail">
-      <h4>{{ articleData.author.username }}</h4>
+      <div *ngIf="articleData">
+        <img src="{{ articleData.author.image }}" alt="image" height="32px" width="32px">
+        <h5 class="showWhite">
+          {{ articleData.author.username }}
+        </h5>
+        <h6 class="showWhite">
+          {{ articleData.createdAt | date: 'longDate' }}
+        </h6>
+      </div>
       <div class="crudBtn" *ngIf='articleData.author.username===currentUser'>
           <button class="btn" [routerLink]="['/edit',articleData.slug]">Edit</button>&nbsp;
           <button class="btn btn-danger" (click)="deleteArticle()" >Delete</button>
@@ -15,17 +23,36 @@
   </div>
 
 </div>
+<div class="container articleBody" *ngIf="articleData">
+    {{ articleData.body }}
+</div>
 <div class="container comments text-center"  *ngIf='isUserLoggedIn'>
-  <textarea #commentField cols="70" rows="5"></textarea><br>
+  <textarea #commentField cols="70" rows="5" [(ngModel)]="defaultValue" placeholder="Write a comment"></textarea><br>
   <button class="btn primary-btn" (click) = postComment(commentField.value)>Post Comment</button>
 </div>
 <div class="text-center" *ngIf='!isUserLoggedIn'>
   Please <a routerLink="/signin">signin</a> or <a routerLink="/signup">signup</a> to post comments <3
 </div>
-
-<div class="container comments text-center card" *ngFor="let comment of allComments">
+<!-- <div class="comments comment text-center card" *ngFor="let comment of allComments">
   {{ comment.body }}
   <span>
     <button class="btn" (click)="deleteComment(comment.id)" *ngIf='comment.author.username===currentUser'>DeleteMe</button>
   </span>
+</div> -->
+
+<div class="card comment" *ngFor="let comment of allComments">
+  <div class="card-body">
+      {{ comment.body }}
+  </div>
+  <hr>
+  <div *ngIf="comment">
+      <img src="{{ comment.author.image }}" alt="image" height="32px" width="32px">
+      <h5 class="showBlack">
+        {{ comment.author.username }}
+      </h5>
+      <h6 class="showBlack">
+        {{ comment.createdAt | date: 'longDate' }}
+      </h6>
+  </div>
+  <button class="btn" (click)="deleteComment(comment.id)" *ngIf='comment.author.username===currentUser'>DeleteMe</button>
 </div>

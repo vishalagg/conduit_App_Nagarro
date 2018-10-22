@@ -31,5 +31,6 @@ export class NavComponent implements OnInit {
   addNewArticle(){
 
   }
+  
 
 }

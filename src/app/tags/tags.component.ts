@@ -23,7 +23,10 @@ export class TagsComponent implements OnInit {
   }
 
   onTagSelection(value) {
+    console.log("llllllllllllll");
+    
     this.tagService.setTagName(value)
     this.articleService.getFeedByTag(value)
+    this.articleService.setCurrentFeedName("tag")
   }
 }

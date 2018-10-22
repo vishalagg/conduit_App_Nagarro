@@ -1,4 +1,4 @@
-<form [formGroup]="signinForm" (ngSubmit)="loginUser()">
+<form [formGroup]="signinForm" (ngSubmit)="loginUser()" class="container">
     <div class="form-group">
       <label for="exampleInputEmail1">Email Address</label>
       <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -8,4 +8,4 @@
       <input type="password" class="form-control" formControlName="password" placeholder="Password">
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="signinForm.invalid">Login</button>
-  </form>
+</form>

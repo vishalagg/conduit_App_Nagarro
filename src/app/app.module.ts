@@ -18,6 +18,7 @@ import { NewArticlesComponent } from './new-articles/new-articles.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HelperComponent } from './profile/helper/helper.component';
 import { PaginationModule } from 'ngx-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 const routes : Routes = [
   {path : '', component: HomeComponent},
@@ -50,6 +51,7 @@ const routes : Routes = [
     HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     PaginationModule.forRoot(),
     RouterModule.forRoot(routes)
   ],

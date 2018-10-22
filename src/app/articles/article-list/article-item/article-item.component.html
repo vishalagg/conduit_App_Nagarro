@@ -1,8 +1,8 @@
 <li>
   <div class="head">
     <div class="heart">
-      <a><i class="fas fa-heart" *ngIf="article.favorited">{{ article.favoritesCount }}</i></a> 
-      <a><i class="far fa-heart" *ngIf="!article.favorited">{{ article.favoritesCount }}</i></a> 
+      <a (click)="switchFav('unfav',article)"><i class="fas fa-heart" *ngIf="article.favorited">{{ article.favoritesCount }}</i></a> 
+      <a (click)="switchFav('fav',article)"><i class="far fa-heart" *ngIf="!article.favorited">{{ article.favoritesCount }}</i></a> 
     </div>
     <div class="imgDiv">
       <img src="{{ article.author.image }}" alt="image" height="32px" width="32px" />

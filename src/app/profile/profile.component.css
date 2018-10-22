@@ -9,3 +9,7 @@ img {
     border-radius: 5px;
     float: right;
 }
+
+.logout {
+    cursor: pointer;
+}

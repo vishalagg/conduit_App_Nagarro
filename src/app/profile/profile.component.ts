@@ -35,4 +35,10 @@ export class ProfileComponent implements OnInit {
         this.articleService.setMyArticles(this.username)
       })
   }
+
+  logout(){
+    localStorage.clear();
+    this.userService.setUsername(null);
+    this.router.navigate(['/signin']);
+  }
 }

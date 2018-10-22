@@ -9,4 +9,8 @@
   <a class="tag" [ngClass]="{'active':classIndex==3 && !tagName}" (click)="getFeed('favourite')">Favourite</a>
 </div>
 <hr>
-<app-article-list (totalArticleEvent)="getFeed(currentFeedName,$event)"></app-article-list>
+<app-article-list></app-article-list>
+
+<pagination class="blocks" [boundaryLinks]="true" [totalItems]="totalArticle" (pageChanged)="pageChanged($event)" 
+ previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [maxSize]="10">
+</pagination> 
